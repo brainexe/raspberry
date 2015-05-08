@@ -134,7 +134,7 @@ class TemperatureDS18Test extends TestCase
 
         $this->glob
             ->expects($this->once())
-            ->method('glob')
+            ->method('execGlob')
             ->with('/sys/bus/w1/devices/*/w1_slave')
             ->willReturn($expected);
 

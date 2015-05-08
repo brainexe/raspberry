@@ -7,6 +7,7 @@ coverage
 messages.mo
 web/*
 bin/*
+lang/*.mo
 node_modules
 npm-debug.log
 /cache/annotated.xml

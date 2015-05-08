@@ -18,7 +18,12 @@ use Symfony\Component\HttpFoundation\Response;
 class Controller
 {
 
-    /**
+	/**
+	 * @var DatabaseUserProvider
+	 */
+	private $userProvider;
+
+	/**
      * @Inject("@DatabaseUserProvider")
      * @param DatabaseUserProvider $userProvider
      */

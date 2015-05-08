@@ -1,10 +1,5 @@
 language: php
 
-env:
-  global:
-    - secure: "a73ImjeRdD/KD3NAehVdjm7Cw+fCF+qx1eh7TTahiQyOETVIpl0CJA14AuPTha8IXv4HFWePHHqZVgtMVCC1MG/lGvSUVQIV6fbDKl6Kl8sxKIG8kdmM/3cZYZ4yQGmHX/CBr2knOn6HqjtH2Wp29xxb/wYCE+4jONja3XdYPQs="
-    - SAUCE_USERNAME=brainexe
-
 php:
   - 5.5
   - 5.6
@@ -20,6 +15,10 @@ services:
 before_install:
   - composer update --no-dev
   - if [ "`phpenv version-name`" != "hhvm" ]; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - wget https://scrutinizer-ci.com/ocular.phar
 
 script:
-  - phpunit --coverage-clover build/logs/clover.xml
+  - phpunit --coverage-clover build/logs/clover.xml --coverage-clover=coverage.clover
+
+after_script:
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

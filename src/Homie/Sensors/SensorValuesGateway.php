@@ -24,7 +24,7 @@ class SensorValuesGateway
      */
     public function addValue($sensorId, $value)
     {
-        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
+        $redis = $this->getRedis()->pipeline();
         $now   = $this->now();
         $key   = $this->getKey($sensorId);
 

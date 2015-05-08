@@ -2,6 +2,7 @@
 
 namespace Tests\Homie\Radio;
 
+use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Redis\RedisInterface;
 use BrainExe\Tests\RedisMockTrait;
 use PHPUnit_Framework_TestCase;
@@ -24,23 +25,23 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var RedisInterface|MockObject
+     * @var Predis|MockObject
      */
-    private $mockRedis;
+    private $redis;
 
     /**
      * @var IdGenerator|MockObject
      */
-    private $mockIdGenerator;
+    private $idGenerator;
 
     public function setUp()
     {
-        $this->mockRedis       = $this->getRedisMock();
-        $this->mockIdGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
+        $this->redis       = $this->getRedisMock();
+        $this->idGenerator = $this->getMock(IdGenerator::class, [], [], '', false);
 
         $this->subject = new RadioGateway();
-        $this->subject->setRedis($this->mockRedis);
-        $this->subject->setIdGenerator($this->mockIdGenerator);
+        $this->subject->setRedis($this->redis);
+        $this->subject->setIdGenerator($this->idGenerator);
     }
 
     public function testGetRadios()
@@ -51,23 +52,23 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
 
         $result = ['result'];
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('SMEMBERS')
             ->with(RadioGateway::REDIS_RADIO_IDS)
             ->willReturn($radioIds);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
-            ->method('multi')
-            ->willReturn($this->mockRedis);
+            ->method('pipeline')
+            ->willReturn($this->redis);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('HGETALL')
             ->with("radios:$radioId");
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('execute')
             ->willReturn($result);
@@ -83,7 +84,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
 
         $radio = ['radio'];
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('HGETALL')
             ->with("radios:$radioId")
@@ -100,7 +101,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
             1
         ];
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('SMEMBERS')
             ->with(RadioGateway::REDIS_RADIO_IDS)
@@ -122,19 +123,19 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $radioVo->pin         = $pin = 'pin';
         $radioVo->code        = $code = 'code';
 
-        $this->mockIdGenerator
+        $this->idGenerator
             ->expects($this->once())
             ->method('generateRandomId')
             ->willReturn($radioId);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
-            ->method('multi')
-            ->willReturn($this->mockRedis);
+            ->method('pipeline')
+            ->willReturn($this->redis);
 
         $key = "radios:$radioId";
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('HMSET')
             ->with($key, [
@@ -146,12 +147,12 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
                 'status' => $radioVo->status,
             ]);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('SADD')
             ->with(RadioGateway::REDIS_RADIO_IDS, $radioId);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('execute');
 
@@ -166,7 +167,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
         $radioVo->radioId = $radioId = 10;
         $radioVo->status  = 1;
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('hMset')
             ->with("radios:$radioId", [
@@ -185,12 +186,12 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
     {
         $radioId = 10;
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('SREM')
             ->with(RadioGateway::REDIS_RADIO_IDS, $radioId);
 
-        $this->mockRedis
+        $this->redis
             ->expects($this->once())
             ->method('DEL')
             ->with("radios:$radioId");

@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 files: {
                     'assets/lang/translations.js': ['lang/*.po']
                 }
-            },
-        },
+            }
+        }
     });
-}
+};

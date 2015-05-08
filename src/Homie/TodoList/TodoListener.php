@@ -31,10 +31,10 @@ class TodoListener implements EventSubscriberInterface
      */
     public function handleAddEvent(TodoListEvent $event)
     {
-        if ($event->item_vo->deadline) {
-            $espeakVo = new EspeakVO(sprintf('Erinnerung: %s', $event->item_vo->name));
+        if ($event->itemVo->deadline) {
+            $espeakVo = new EspeakVO(sprintf('Erinnerung: %s', $event->itemVo->name));
             $espeakEvent = new EspeakEvent($espeakVo);
-            $this->dispatchInBackground($espeakEvent, $event->item_vo->deadline);
+            $this->dispatchInBackground($espeakEvent, $event->itemVo->deadline);
         }
     }
 }

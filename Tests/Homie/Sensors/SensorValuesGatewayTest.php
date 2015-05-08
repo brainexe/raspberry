@@ -51,7 +51,7 @@ class SensorValuesGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('multi')
+            ->method('pipeline')
             ->willReturn($this->redis);
 
         $this->redis

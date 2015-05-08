@@ -41,7 +41,7 @@ class TodoListGateway
     {
         $itemIds = $this->getRedis()->sMembers(self::TODO_IDS);
 
-        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
+        $redis = $this->getRedis()->pipeline();
         foreach ($itemIds as $itemId) {
             $redis->HGETALL($this->getRedisKey($itemId));
         }

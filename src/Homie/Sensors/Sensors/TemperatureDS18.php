@@ -96,7 +96,7 @@ class TemperatureDS18 extends AbstractSensor implements Searchable
      */
     public function search()
     {
-        return $this->glob->glob('/sys/bus/w1/devices/*/w1_slave');
+        return $this->glob->execGlob('/sys/bus/w1/devices/*/w1_slave');
     }
 
     /**

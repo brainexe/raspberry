@@ -5,6 +5,7 @@
         <parameter key="piwik.site"/>
         <parameter key="piwik.id"/>
         <parameter key="node.id">0</parameter>
+        <parameter key="redis.password">testtest</parameter>
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>

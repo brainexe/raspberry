@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Webcam\WebcamListener;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Webcam\WebcamEvent;
 use Homie\Webcam\WebcamListener;
@@ -11,7 +11,7 @@ use Homie\Webcam\Webcam;
 /**
  * @covers Homie\Webcam\WebcamListener
  */
-class WebcamListenerTest extends PHPUnit_Framework_TestCase
+class WebcamListenerTest extends TestCase
 {
 
     /**
@@ -22,15 +22,12 @@ class WebcamListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var Webcam|MockObject
      */
-    private $mockWebcam;
+    private $webcam;
 
     public function setUp()
     {
-        parent::setUp();
-
-        $this->mockWebcam = $this->getMock(Webcam::class, [], [], '', false);
-
-        $this->subject = new WebcamListener($this->mockWebcam);
+        $this->webcam  = $this->getMock(Webcam::class, [], [], '', false);
+        $this->subject = new WebcamListener($this->webcam);
     }
 
     public function testGetSubscribedEvents()
@@ -44,7 +41,7 @@ class WebcamListenerTest extends PHPUnit_Framework_TestCase
         $name = 'shoot 123';
         $event = new WebcamEvent($name, WebcamEvent::TAKE_PHOTO);
 
-        $this->mockWebcam
+        $this->webcam
             ->expects($this->once())
             ->method('takePhoto')
             ->with($name);

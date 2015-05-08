@@ -25,7 +25,7 @@ class TodoItemVO
     public $userId;
 
     /**
-     * @var int
+     * @var string
      */
     public $userName;
 

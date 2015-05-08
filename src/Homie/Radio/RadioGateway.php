@@ -27,7 +27,7 @@ class RadioGateway
     {
         $radioIds = $this->getRadioIds();
 
-        $pipeline = $this->getRedis()->multi(PhpRedis::PIPELINE);
+        $pipeline = $this->getRedis()->pipeline();
 
         foreach ($radioIds as $radioId) {
             $pipeline->HGETALL(self::getRadioKey($radioId));
@@ -65,7 +65,7 @@ class RadioGateway
     {
         $newId = $this->generateRandomId();
 
-        $pipeline = $this->getRedis()->multi(PhpRedis::PIPELINE);
+        $pipeline = $this->getRedis()->pipeline();
 
         $key = $this->getRadioKey($newId);
         $pipeline->HMSET($key, [

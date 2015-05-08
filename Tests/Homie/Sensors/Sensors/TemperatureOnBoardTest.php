@@ -35,7 +35,7 @@ class TemperatureOnBoardTest extends TestCase
     public function setUp()
     {
         $this->fileSystem = $this->getMock(Filesystem::class, [], [], '', false);
-        $this->glob     = $this->getMock(Glob::class, [], [], '', false);
+        $this->glob       = $this->getMock(Glob::class, [], [], '', false);
 
         $this->subject = new TemperatureOnBoard($this->fileSystem, $this->glob);
     }
@@ -113,7 +113,7 @@ class TemperatureOnBoardTest extends TestCase
 
         $this->glob
             ->expects($this->once())
-            ->method('glob')
+            ->method('execGlob')
             ->with('/sys/class/thermal/*/temp')
             ->willReturn($result);
 

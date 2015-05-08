@@ -37,7 +37,12 @@ class Crawl extends Command
      */
     private $sensorsRaw;
 
-    /**
+	/**
+	 * @var SensorGateway
+	 */
+	private $gateway;
+
+	/**
      * {@inheritdoc}
      */
     protected function configure()

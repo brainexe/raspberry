@@ -2,10 +2,10 @@
 
 namespace Tests\Homie\Sensors;
 
-use BrainExe\Core\Redis\RedisInterface;
+use BrainExe\Core\Redis\Predis;
 use BrainExe\Core\Util\IdGenerator;
 use BrainExe\Tests\RedisMockTrait;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Sensors\SensorGateway;
 use Homie\Sensors\SensorVO;
@@ -13,7 +13,7 @@ use Homie\Sensors\SensorVO;
 /**
  * @covers Homie\Sensors\SensorGateway
  */
-class SensorGatewayTest extends PHPUnit_Framework_TestCase
+class SensorGatewayTest extends TestCase
 {
 
     use RedisMockTrait;
@@ -24,7 +24,7 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * @var RedisInterface|MockObject
+     * @var Predis|MockObject
      */
     private $redis;
 
@@ -35,7 +35,7 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->redis = $this->getRedisMock();
+        $this->redis       = $this->getRedisMock();
         $this->idGenerator = $this->getMock(IdGenerator::class);
 
         $this->subject = new SensorGateway();
@@ -59,7 +59,7 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('multi')
+            ->method('pipeline')
             ->willReturn($this->redis);
 
         $this->redis
@@ -101,7 +101,7 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('multi')
+            ->method('pipeline')
             ->willReturn($this->redis);
 
         $this->redis
@@ -157,7 +157,7 @@ class SensorGatewayTest extends PHPUnit_Framework_TestCase
 
         $this->redis
             ->expects($this->once())
-            ->method('multi')
+            ->method('pipeline')
             ->willReturn($this->redis);
 
         $this->redis

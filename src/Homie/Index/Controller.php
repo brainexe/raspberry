@@ -15,12 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 class Controller
 {
     /**
-     * @param Request $request
      * @return Response
      * @Route("/", name="index")
      * @Guest
      */
-    public function index(Request $request)
+    public function index()
     {
         $response = file_get_contents(ROOT . '/web/index.html');
 

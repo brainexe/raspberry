@@ -3,7 +3,6 @@
 namespace Homie\Sensors;
 
 use BrainExe\Annotations\Annotations\Service;
-use BrainExe\Core\Redis\PhpRedis;
 use BrainExe\Core\Traits\IdGeneratorTrait;
 use BrainExe\Core\Traits\RedisTrait;
 
@@ -26,7 +25,7 @@ class SensorGateway
     {
         $sensorIds = $this->getSensorIds();
 
-        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
+        $redis = $this->getRedis()->pipeline();
         foreach ($sensorIds as $sensorId) {
             $redis->HGETALL($this->getKey($sensorId));
         }
@@ -65,13 +64,13 @@ class SensorGateway
      */
     public function addSensor(SensorVO $sensorVo)
     {
-        $redis = $this->getRedis()->multi(PhpRedis::PIPELINE);
+        $redis = $this->getRedis()->pipeline();
         $newId = $this->generateRandomNumericId();
 
         $key = $this->getKey($newId);
 
         $sensorVo->sensorId           = $newId;
-        $sensorVo->lastValue          = 0;
+        $sensorVo->lastValue          = 0.0;
         $sensorVo->lastValueTimestamp = 0;
 
         $data = (array)$sensorVo;

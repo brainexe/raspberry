@@ -42,7 +42,7 @@ class RadioJobListener implements EventSubscriberInterface
     public function handleChangeEvent(RadioChangeEvent $event)
     {
         $this->controller->setStatus(
-            $event->radio_vo,
+            $event->radioVo,
             $event->status
         );
     }

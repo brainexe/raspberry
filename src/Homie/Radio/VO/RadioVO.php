@@ -6,7 +6,7 @@ class RadioVO
 {
 
     /**
-     * @var integer
+     * @var string
      */
     public $radioId;
 
@@ -16,7 +16,7 @@ class RadioVO
     public $code;
 
     /**
-     * @var integer
+     * @var int
      */
     public $pin;
 

@@ -74,7 +74,7 @@ class TemperatureOnBoard extends AbstractSensor implements Searchable
      */
     public function search()
     {
-        return array_filter($this->glob->glob('/sys/class/thermal/*/temp'), function ($file) {
+        return array_filter($this->glob->execGlob('/sys/class/thermal/*/temp'), function ($file) {
             return strpos($file, 'cooling') === false;
         });
     }

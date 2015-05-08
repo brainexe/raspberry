@@ -32,7 +32,7 @@ class RadioChangeEvent extends AbstractEvent
     public function __construct(RadioVO $radioVo, $status)
     {
         $this->event_name = self::CHANGE_RADIO;
-        $this->radio_vo   = $radioVo;
+        $this->radioVo   = $radioVo;
         $this->status     = $status;
     }
 }
