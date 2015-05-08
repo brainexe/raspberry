@@ -49,7 +49,7 @@ class BlogPostNotifyListener implements EventSubscriberInterface
         $espeak = new EspeakVO($text);
         $event = new EspeakEvent($espeak);
 
-     // speak NOW and today at next defined time
+        // speak NOW and today at next defined time
         $this->dispatchInBackground($event);
 
         $time = $this->getTime()->strtotime(self::NOTIFY_TIME);

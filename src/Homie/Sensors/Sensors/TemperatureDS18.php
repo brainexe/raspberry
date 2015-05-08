@@ -53,7 +53,7 @@ class TemperatureDS18 extends AbstractSensor implements Searchable
         $content = $this->fileSystem->fileGetContents($path);
 
         if (strpos($content, 'YES') === false) {
-         // invalid response :(
+            // invalid response :(
             return null;
         }
 

@@ -2,7 +2,7 @@
 
 use BrainExe\Core\Core;
 
-define('ROOT', realpath(__DIR__ . '/..').'/');
+define('ROOT', realpath(__DIR__ . '/..') . '/');
 
 include ROOT . '/vendor/autoload.php';
 

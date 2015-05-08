@@ -35,7 +35,7 @@ class Controller implements ControllerInterface
     public function index()
     {
         $dashboards = $this->dashboard->getDashboards();
-        $widgets   = $this->dashboard->getAvailableWidgets();
+        $widgets = $this->dashboard->getAvailableWidgets();
 
         return [
             'dashboards' => $dashboards,

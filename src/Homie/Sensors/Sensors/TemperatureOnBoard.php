@@ -31,7 +31,7 @@ class TemperatureOnBoard extends AbstractSensor implements Searchable
 
     /**
      * @Inject({"@FileSystem", "@Glob"})
-     * @param Filesystem $filesystem
+     * @param FileSystem $filesystem
      * @param Glob $glob
      */
     public function __construct(Filesystem $filesystem, Glob $glob)
@@ -74,7 +74,7 @@ class TemperatureOnBoard extends AbstractSensor implements Searchable
      */
     public function search()
     {
-        return array_filter($this->glob->execGlob('/sys/class/thermal/*/temp'), function ($file) {
+        return array_filter($this->glob->execGlob('/sys/class/thermal/*/temp'), function($file) {
             return strpos($file, 'cooling') === false;
         });
     }

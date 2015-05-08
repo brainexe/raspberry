@@ -28,7 +28,7 @@ class SensorValuesGateway
         $now   = $this->now();
         $key   = $this->getKey($sensorId);
 
-        $redis->ZADD($key, $now, $now.'-'.$value);
+        $redis->ZADD($key, $now, $now . '-' . $value);
 
         $redis->HMSET(SensorGateway::REDIS_SENSOR_PREFIX . $sensorId, [
             'lastValue' => $value,

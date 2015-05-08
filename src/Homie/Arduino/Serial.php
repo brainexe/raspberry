@@ -87,7 +87,7 @@ class Serial
             ->getIterator();
 
         /** @var SplFileInfo $file */
-        $file =  $iterator->current();
+        $file = $iterator->current();
 
         if (!$file instanceof SplFileInfo) {
             throw new RuntimeException(

@@ -31,7 +31,7 @@ class Dashboard
      */
     public function __construct(DashboardGateway $dashboardGateway, WidgetFactory $widgetFactory)
     {
-        $this->widgetFactory    = $widgetFactory;
+        $this->widgetFactory = $widgetFactory;
         $this->gateway = $dashboardGateway;
     }
 
