@@ -2,9 +2,7 @@
 
 namespace Tests\Homie\Index;
 
-
 use PHPUnit_Framework_TestCase as TestCase;
-
 use Homie\Index\Controller;
 
 /**

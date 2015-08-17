@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Homie\TodoList;
+namespace Tests\Homie\TodoList\InputControl;
 
 use Homie\TodoList\InputControl\Reminder;
 use Homie\TodoList\TodoReminder;
@@ -10,7 +10,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 /**
  * @covers Homie\TodoList\InputControl\Reminder
  */
-class InputControlTest extends TestCase
+class ReminderTest extends TestCase
 {
 
     /**

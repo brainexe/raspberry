@@ -12,7 +12,7 @@ use Homie\Sensors\Sensors\AbstractSensor;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @Sensor("Sensor.Custom.Script")
+ * @Sensor("Sensor.Misc.Script")
  */
 class Script extends AbstractSensor implements Parameterized
 {
@@ -48,8 +48,9 @@ class Script extends AbstractSensor implements Parameterized
      */
     public function isSupported($parameter, OutputInterface $output)
     {
-        // todo exec script
-        return true;
+        $current = $this->getValue($parameter);
+
+        return $current !== null;
     }
 
     /**

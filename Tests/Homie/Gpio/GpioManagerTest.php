@@ -2,7 +2,7 @@
 
 namespace Tests\Homie\Gpio;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Gpio\GpioManager;
 use Homie\Gpio\Pin;
@@ -11,7 +11,7 @@ use Homie\Client\LocalClient;
 use Homie\Gpio\PinLoader;
 use Homie\Gpio\PinsCollection;
 
-class GpioManagerTest extends PHPUnit_Framework_TestCase
+class GpioManagerTest extends TestCase
 {
 
     /**
@@ -40,7 +40,7 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $this->client = $this->getMock(LocalClient::class, [], [], '', false);
         $this->pinLoader = $this->getMock(PinLoader::class, [], [], '', false);
 
-        $this->subject = new GpioManager($this->pinGateway, $this->client, $this->pinLoader);
+        $this->subject = new GpioManager($this->pinGateway, $this->client, $this->pinLoader, './gpio');
     }
 
     public function testGetPins()
@@ -91,12 +91,12 @@ class GpioManagerTest extends PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->at(0))
             ->method('execute')
-            ->with("gpio mode 10 'OUT'");
+            ->with("./gpio mode 10 'OUT'");
 
         $this->client
             ->expects($this->at(1))
             ->method('execute')
-            ->with("gpio write 10 1");
+            ->with("./gpio write 10 1");
 
         $actualResult = $this->subject->setPin($gpioId, $status, $value);
 

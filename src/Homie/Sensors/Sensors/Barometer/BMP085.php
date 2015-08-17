@@ -37,7 +37,7 @@ class BMP085 extends AbstractSensor implements Parameterized
 
     /**
      * @param integer $parameter
-     * @return double
+     * @return double|null
      */
     public function getValue($parameter)
     {
@@ -52,7 +52,7 @@ class BMP085 extends AbstractSensor implements Parameterized
             return (float)$pressure;
         }
 
-        return 0;
+        return null;
     }
 
     /**

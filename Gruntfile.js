@@ -14,20 +14,20 @@ module.exports = function (grunt) {
     grunt.registerTask('extract_lang', ['nggettext_extract']);
     grunt.registerTask('compile_lang', ['nggettext_compile']);
 
-    grunt.registerTask('bower', function() {
+    grunt.registerTask('bower', function () {
         var done = this.async();
 
         var child = grunt.util.spawn({
             cmd: 'bower',
             args: ['update', '--production']
-        }, function(err, out) {
+        }, function (err, out) {
             done();
         });
         child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stderr);
     });
 
-    grunt.registerTask('websocket', function(option) {
+    grunt.registerTask('websocket', function (option) {
         option = option || 'start';
         var forever = require('forever');
 
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
             cmd: 'php',
             args: ['console', task],
             stdio: 'inherit'
-        }, function(err, out) {
+        }, function (err, out) {
             done();
         });
         child.stdout.pipe(process.stdout);
@@ -116,7 +116,7 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['assets/**/*.js'],
-                tasks: ['uglify'],
+                tasks: ['uglify:app'],
                 options: {
                     livereload: true
                 }
@@ -151,8 +151,20 @@ module.exports = function (grunt) {
             },
             static: {
                 files: [
-                    {expand: true, src: ['**/*.ico', '**/*.png', '**/*.jpg'], cwd: 'assets/', dest: 'web/', filter: 'isFile'},
-                    {expand: true, src: ['**/*.woff', '**/*.woff2'], cwd: 'bower_components/bootstrap', dest: 'web/', filter: 'isFile'}
+                    {
+                        expand: true,
+                        src: ['**/*.ico', '**/*.png', '**/*.jpg'],
+                        cwd: 'assets/',
+                        dest: 'web/',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        src: ['**/*.woff', '**/*.woff2'],
+                        cwd: 'bower_components/bootstrap',
+                        dest: 'web/',
+                        filter: 'isFile'
+                    }
                 ]
             }
         },
@@ -200,12 +212,12 @@ module.exports = function (grunt) {
                 options: {
                     beautify: !isProduction,
                     compress: isProduction ? {
-                        unsafe:       true,
+                        unsafe: true,
                         unsafe_comps: true,
-                        screw_ie8:    true,
-                        angular:      true,
+                        screw_ie8: true,
+                        angular: true,
                         pure_getters: true,
-                        hoist_vars:   true
+                        hoist_vars: true
                     } : false,
                     mangle: isProduction ? {
                         toplevel: true
@@ -226,7 +238,7 @@ module.exports = function (grunt) {
             vendor: {
                 options: {
                     compress: false,
-                    mangle:   false,
+                    mangle: false,
                     sourceMap: isProduction,
                     sourceMapIncludeSources: true,
                     sourceMapName: 'web/vendor.map'
@@ -238,6 +250,7 @@ module.exports = function (grunt) {
                         'bower_components/angular-gettext/dist/angular-gettext.min.js',
                         'bower_components/angular-sanitize/angular-sanitize.min.js', // todo needed?
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                        'bower_components/angular-native-dragdrop/draganddrop.js',
                         'bower_components/angular-cache/dist/angular-cache.min.js',
                         'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         'bower_components/ui-select/dist/select.min.js',

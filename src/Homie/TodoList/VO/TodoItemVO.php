@@ -51,6 +51,11 @@ class TodoItemVO
     public $createdAt;
 
     /**
+     * @var string
+     */
+    public $cronExpression;
+
+    /**
      * @var integer
      */
     public $lastChange;

@@ -9,3 +9,4 @@ lang/*.mo
 node_modules
 npm-debug.log
 bower_components
+coverage

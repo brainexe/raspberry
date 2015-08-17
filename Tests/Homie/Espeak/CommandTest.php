@@ -25,13 +25,13 @@ class CommandTest extends TestCase
     /**
      * @var EventDispatcher|MockObject
      */
-    private $mockEventDispatcher;
+    private $dispatcher;
 
     public function setUp()
     {
-        $this->mockEventDispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
+        $this->dispatcher = $this->getMock(EventDispatcher::class, [], [], '', false);
         $this->subject = new Command();
-        $this->subject->setEventDispatcher($this->mockEventDispatcher);
+        $this->subject->setEventDispatcher($this->dispatcher);
     }
 
     public function testExecute()
@@ -46,7 +46,7 @@ class CommandTest extends TestCase
         $espeakVo = new EspeakVO($text);
         $event = new EspeakEvent($espeakVo);
 
-        $this->mockEventDispatcher
+        $this->dispatcher
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with($event);

@@ -1,4 +1,4 @@
-<div>
+<div class="container-fluid">
 	<div class="task-list">
 		<h3 translate>Add a task</h3>
 		<form ng-submit="addTodo()" class="form-group">
@@ -36,17 +36,16 @@
 
 	<div
 			class="task-list task-container"
-			ng-repeat="status in stati"
-			ng-model="status.id"
-			ui-on-Drop="onDrop(status.id,$event,$data,status.tasks)"
+			ng-repeat="(statusId, status) in states"
+			ng-model="statusId"
+			ui-on-Drop="onDrop(statusId, $event, $data, status.tasks)"
 	>
 		<h3>{{ status.name }}</h3>
 		<div
-				ng-repeat="item in status.tasks|orderBy:'name'"
+				ng-repeat="item in items|filter:statusId|orderBy:'name'"
                 class="todo-task"
 				ui-draggable="true"
 				drag="item"
-				on-drop-success="dropSuccessHandler($index, status.id, item.todoId, status.tasks)"
 				>
 			<div class="task-header">{{item.name}}</div>
 			<div class="task-description" ng-if="item.description">{{item.description}}</div>

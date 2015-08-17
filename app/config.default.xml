@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="debug">false</parameter>
         <parameter key="node.id">0</parameter>
 
         <parameter key="socket.url">http://localhost:8081/socket</parameter>
 
-        <!-- todo -->
         <parameter key="rc_switch.command">sudo /opt/rcswitch-pi/send</parameter>
-
-        <!-- todo -->
         <parameter key="adafruit.path">/opt/Adafruit-Raspberry-Pi-Python-Code/Adafruit_DHT_Driver/</parameter>
 
         <parameter key="webcam.executable.photo">fswebcam {{file}}</parameter>

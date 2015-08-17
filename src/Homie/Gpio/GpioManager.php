@@ -12,10 +12,9 @@ use Homie\Client\ClientInterface;
 class GpioManager
 {
 
-    // todo put into config.xml
-    const GPIO_COMMAND_READALL   = 'gpio readall';
-    const GPIO_COMMAND_DIRECTION = 'gpio mode %d %s';
-    const GPIO_COMMAND_VALUE     = 'gpio write %d %d';
+    const GPIO_COMMAND_READALL   = '%s readall';
+    const GPIO_COMMAND_DIRECTION = '%s mode %d %s';
+    const GPIO_COMMAND_VALUE     = '%s write %d %d';
 
     /**
      * @var ClientInterface
@@ -33,19 +32,27 @@ class GpioManager
     private $loader;
 
     /**
-     * @Inject({"@PinGateway", "@HomieClient", "@PinLoader"})
+     * @var string
+     */
+    private $gpioExecutable;
+
+    /**
+     * @Inject({"@PinGateway", "@HomieClient", "@PinLoader", "%gpio.executable%"})
      * @param PinGateway $gateway
      * @param ClientInterface $client
      * @param PinLoader $loader
+     * @param $gpioExecutable
      */
     public function __construct(
         PinGateway $gateway,
         ClientInterface $client,
-        PinLoader $loader
+        PinLoader $loader,
+        $gpioExecutable
     ) {
-        $this->gateway = $gateway;
-        $this->client  = $client;
-        $this->loader  = $loader;
+        $this->gateway        = $gateway;
+        $this->client         = $client;
+        $this->loader         = $loader;
+        $this->gpioExecutable = $gpioExecutable;
     }
 
     /**
@@ -103,6 +110,7 @@ class GpioManager
 
         $command = sprintf(
             self::GPIO_COMMAND_DIRECTION,
+            $this->gpioExecutable,
             $pin->getWiringId(),
             escapeshellarg($pin->getMode())
         );
@@ -110,6 +118,7 @@ class GpioManager
 
         $command = sprintf(
             self::GPIO_COMMAND_VALUE,
+            $this->gpioExecutable,
             $pin->getWiringId(),
             $pinValue
         );

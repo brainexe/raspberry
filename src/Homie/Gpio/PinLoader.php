@@ -25,12 +25,19 @@ class PinLoader
     private $pins = null;
 
     /**
-     * @Inject("@HomieClient")
-     * @param ClientInterface $client
+     * @var string
      */
-    public function __construct(ClientInterface $client)
+    private $gpioExecutable;
+
+    /**
+     * @Inject({"@HomieClient", "%gpio.executable%"})
+     * @param ClientInterface $client
+     * @param string $gpioExecutable
+     */
+    public function __construct(ClientInterface $client, $gpioExecutable)
     {
         $this->client = $client;
+        $this->gpioExecutable = $gpioExecutable;
     }
 
     /**
@@ -55,16 +62,14 @@ class PinLoader
         }
 
         try {
-            $file = $this->client->executeWithReturn(
-                GpioManager::GPIO_COMMAND_READALL
-            );
+            $command = sprintf(GpioManager::GPIO_COMMAND_READALL, $this->gpioExecutable);
+            $file = $this->client->executeWithReturn($command);
         } catch (Exception $e) {
             $file = file_get_contents(__DIR__ . '/gpio.txt');
         }
 
         $lines = explode("\n", $file);
-
-        $type = trim($lines[0], ' +-');
+        $type  = trim($lines[0], ' +-');
         $this->pins = new PinsCollection($type);
 
         $lines = array_slice($lines, 3, -4);

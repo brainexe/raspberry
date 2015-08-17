@@ -5,10 +5,10 @@ namespace Homie\Client;
 use BrainExe\Annotations\Annotations\Inject;
 use BrainExe\Annotations\Annotations\Service;
 use RuntimeException;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * @todo cleanup
  * @Service("HomieClient.Local", public=false)
  */
 class LocalClient implements ClientInterface
@@ -44,11 +44,11 @@ class LocalClient implements ClientInterface
     public function executeWithReturn($command, array $arguments = [])
     {
         $process = $this->processBuilder
-            ->add('')
+            ->setPrefix(explode(' ', $command))
+            ->setArguments($arguments)
             ->setTimeout(self::TIMEOUT)
             ->getProcess();
 
-        $process->setCommandLine($command);
         $process->run();
 
         if (!$process->isSuccessful()) {

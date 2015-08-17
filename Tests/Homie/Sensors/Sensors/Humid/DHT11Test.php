@@ -92,5 +92,4 @@ class DHT11Test extends TestCase
 
         $this->assertFalse($actualResult);
     }
-
 }

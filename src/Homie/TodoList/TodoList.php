@@ -76,7 +76,7 @@ class TodoList
 
         foreach ($rawList as $item) {
             $itemVo = $this->builder->build($item);
-            $list[$item['todoId']] = $itemVo;
+            $list[] = $itemVo;
         }
 
         return $list;

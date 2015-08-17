@@ -32,7 +32,7 @@ class Controller
      * @param Request $request
      * @param string $type
      * @Route("/help/{type}/", name="help.save", methods="POST")
-     * @return string[]
+     * @return true
      * @Guest
      */
     public function save(Request $request, $type)
@@ -44,7 +44,7 @@ class Controller
     }
     /**
      * @param Request $request
-     * @return string[]
+     * @return bool
      * @param string $type
      * @Route("/help/{type}/", name="help.delete", methods="DELETE")
      * @Guest

@@ -13,7 +13,6 @@ App.service('SensorGraph', ['Sensor', 'SensorFormatter', function (Sensor, Senso
 
             var legend = element.querySelector('.legend');
             legend.innerHTML = '';
-            console.log('update');
             new Rickshaw.Graph.Legend({
                 element: legend,
                 graph: $scope.graph

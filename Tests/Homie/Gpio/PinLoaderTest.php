@@ -3,9 +3,8 @@
 namespace Tests\Homie\Gpio;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Homie\Gpio\GpioManager;
 use Homie\Gpio\Pin;
 use Homie\Gpio\PinLoader;
 use Homie\Client\LocalClient;
@@ -14,7 +13,7 @@ use Homie\Gpio\PinsCollection;
 /**
  * @covers Homie\Gpio\PinLoader
  */
-class PinLoaderTest extends PHPUnit_Framework_TestCase
+class PinLoaderTest extends TestCase
 {
 
     /**
@@ -30,7 +29,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->client  = $this->getMock(LocalClient::class, [], [], '', false);
-        $this->subject = new PinLoader($this->client);
+        $this->subject = new PinLoader($this->client, './gpio');
     }
 
     public function testGetPins()
@@ -46,7 +45,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
-            ->with(GpioManager::GPIO_COMMAND_READALL)
+            ->with('./gpio readall')
             ->willReturn($gpioResult);
 
         $actualResult = $this->subject->loadPins();
@@ -84,7 +83,7 @@ class PinLoaderTest extends PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->once())
             ->method('executeWithReturn')
-            ->with(GpioManager::GPIO_COMMAND_READALL)
+            ->with('./gpio readall')
             ->willThrowException(new Exception());
 
         $actualResult = $this->subject->loadPins();

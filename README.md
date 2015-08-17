@@ -3,7 +3,7 @@ Build status: [![Build Status](https://travis-ci.org/brainexe/homie.png?branch=m
 [![Code Coverage](https://scrutinizer-ci.com/g/brainexe/homie/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/brainexe/homie/?branch=master)
 
 #Overview
-Homie is a software to automate you home using low-budget hardware, like an RaspberryPi
+Homie is a software to automate you home using low-budget hardware, like a RaspberryPi
 
 #Installaltion
 Checkout [this installation executable](https://github.com/brainexe/homie_install)
@@ -17,12 +17,7 @@ Checkout [this installation executable](https://github.com/brainexe/homie_instal
 - RaspberryPi (all versions)
 
 #Features
-- Sensor Support (e.g. termometer, humidity, barometer, brightness...)
-- Control you plug sockets at home
-- Dashboard with a whole bunch of widgets
-- Full responsive
-- Fast (<10ms response time -> suitable for low-budget hardware like raspberryPi)
-... tbd
+tbd
 
 #Screenshots
 tbd

@@ -33,7 +33,6 @@ class Webcam
     }
 
     /**
-     * @todo get all files
      * @return WebcamVO[]
      */
     public function getFiles()
@@ -54,6 +53,14 @@ class Webcam
     public function getRecentImage()
     {
         $files = $this->filesystem->listContents(self::ROOT, true);
+
+        if (empty($files)) {
+            return [];
+        }
+
+        usort($files, function (array $a, array $b) {
+            return $a['timestamp'] < $b['timestamp'];
+        });
         $file  = array_pop($files);
 
         return $this->formatFile($file);

@@ -58,20 +58,6 @@ class TodoListControllerTest extends TestCase
         $this->assertEquals($list, $actual['list']);
     }
 
-    public function testFetchList()
-    {
-        $list = [];
-
-        $this->todoList
-            ->expects($this->once())
-            ->method('getList')
-            ->willReturn($list);
-
-        $actual = $this->subject->fetchList();
-
-        $this->assertEquals($list, $actual);
-    }
-
     public function testAddItem()
     {
         $user    = new UserVO();

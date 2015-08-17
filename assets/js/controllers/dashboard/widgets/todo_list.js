@@ -21,6 +21,7 @@ App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
                 Todo.add({
                     name: name
                 }).success(function(newItem) {
+                    console.log(newItem);
                     $scope.items.push(newItem);
                 });
             };
@@ -28,7 +29,7 @@ App.service('Widget.todo_list', ['Todo', "_", function(Todo, _) {
             $scope.setStatus = function (item, status) {
                 if (status == 'delete') {
                     Todo.deleteItem(item.todoId);
-                    delete $scope.items[item.todoId];
+                    $scope.items.removeByValue(item);
                 } else {
                     item.status = status;
                     Todo.edit(item);

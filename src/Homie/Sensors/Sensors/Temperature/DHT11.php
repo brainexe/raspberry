@@ -8,7 +8,6 @@ use Homie\Sensors\Formatter\Temperature;
 use Homie\Sensors\Sensors\AbstractDHT11;
 
 /**
- * @todo searchable?
  * @Sensor("Sensor.DHT11.Temperature")
  */
 class DHT11 extends AbstractDHT11

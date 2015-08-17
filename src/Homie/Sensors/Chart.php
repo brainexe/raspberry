@@ -31,7 +31,7 @@ class Chart
             $sensorJson = [
                 'sensor_id'   => (int)$sensorId,
                 'type'        => $sensor['type'],
-                'color'       => $this->getColor($sensorId),
+                'color'       => $this->getColor($sensor),
                 'name'        => $sensor['name'],
                 'description' => $sensor['description'],
                 'data'        => []
@@ -66,12 +66,15 @@ class Chart
     }
 
     /**
-     * @param int $sensorId
+     * @param array $sensor
      * @return string
      */
-    private function getColor($sensorId)
+    private function getColor(array $sensor)
     {
-        // todo add color to sensor
-        return sprintf('#%s', substr(md5($sensorId), 0, 6));
+        if (!empty($sensor['color'])) {
+            return $sensor['color'];
+        }
+
+        return sprintf('#%s', substr(md5($sensor['sensorId']), 0, 6));
     }
 }

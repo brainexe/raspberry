@@ -1,7 +1,7 @@
 <div ng-repeat="(statusId, status) in states" ng-if="items|toArray|filter:statusId|notEmpty">
     <h4>{{ status.name }}</h4>
     <ul>
-        <li ng-repeat="item in items|toArray|filter:statusId|orderBy:'name'" >
+        <li ng-repeat="item in items|filter:statusId|orderBy:'name'" >
             <span tooltip="item.description">{{item.name}}</span>
             <div ng-if="item.deadline > 0">
                 <time-ago from-time="item.deadline" overdue="true"></time-ago>

@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="logger.sensor.log">logs/sensor.log</parameter>
-		<parameter key="application.name">homie</parameter>
-		<parameter key="application.registration_enabled">false</parameter>
+        <parameter key="application.name">homie</parameter>
+        <parameter key="application.registration_enabled">false</parameter>
         <parameter key="application.allowed_private_ips">true</parameter>
 
-		<parameter key="delete_sensor_values" type="collection">
-			<parameter type="collection">
-				<parameter key="days">7</parameter>
-				<parameter key="percentage">25</parameter>
-			</parameter>
-			<parameter type="collection">
-				<parameter key="days">30</parameter>
-				<parameter key="percentage">50</parameter>
-			</parameter>
-		</parameter>
+        <parameter key="gpio.executable">gpio</parameter>
 
         <parameter key="remote_filesystem.url"></parameter>
         <parameter key="remote_filesystem.username"></parameter>
         <parameter key="remote_filesystem.password"></parameter>
     </parameters>
-	<services>
-		<service id="HomieClient" alias="HomieClient.Local" public="false"/>
+    <services>
+        <service id="HomieClient" alias="HomieClient.Local" public="false"/>
 
         <service id="RemoteFilesystem" class="League\Flysystem\Filesystem" public="false">
             <argument type="service">
