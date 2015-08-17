@@ -108,20 +108,12 @@ class Controller
     public function indexSensor(Request $request, $activeSensorIds)
     {
         $userId = $request->attributes->get('userId');
-        if (empty($activeSensorIds)) {
-            $activeSensorIds = $this->settings->get($userId, self::SETTINGS_ACTIVE_SENSORS) ?: '0';
-        }
-
-        if (empty($activeSensorIds)) {
-            $availableSensorIds = $this->gateway->getSensorIds();
-            $activeSensorIds = implode(':', $availableSensorIds);
-        }
-
-        $from = (int)$request->query->get('from');
+        $from   = (int)$request->query->get('from');
         if (!$from) {
             $from = (int)$this->settings->get($userId, self::SETTINGS_TIMESPAN) ?: Chart::DEFAULT_TIME;
         }
 
+        $activeSensorIds = $this->getActiveSensorIds($activeSensorIds, $userId);
         if ($request->query->get('save')) {
             $this->settings->set($userId, self::SETTINGS_ACTIVE_SENSORS, $activeSensorIds);
             $this->settings->set($userId, self::SETTINGS_TIMESPAN, $from);
@@ -200,9 +192,8 @@ class Controller
      */
     public function addValue(Request $request, $sensorId)
     {
-        $value = $request->request->get('value');
-
-        $sensor    = $this->gateway->getSensor($sensorId);
+        $value    = $request->request->get('value');
+        $sensor   = $this->gateway->getSensor($sensorId);
         $sensorVo = $this->voBuilder->buildFromArray($sensor);
 
         $this->valuesGateway->addValue($sensorVo, $value);
@@ -350,5 +341,24 @@ class Controller
         }
 
         return $sensorValues;
+    }
+
+    /**
+     * @param string $activeSensorIds
+     * @param int $userId
+     * @return string
+     */
+    protected function getActiveSensorIds($activeSensorIds, $userId)
+    {
+        if (empty($activeSensorIds)) {
+            $activeSensorIds = $this->settings->get($userId, self::SETTINGS_ACTIVE_SENSORS) ?: '0';
+        }
+
+        if (empty($activeSensorIds)) {
+            $availableSensorIds = $this->gateway->getSensorIds();
+            $activeSensorIds    = implode(':', $availableSensorIds);
+        }
+
+        return $activeSensorIds;
     }
 }

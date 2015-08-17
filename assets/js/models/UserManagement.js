@@ -4,14 +4,17 @@ App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
 
     return {
         register: function(payload) {
+            Cache.clear('^/user/$');
             return $http.post('/register/', payload)
         },
 
         logout: function() {
+            Cache.clear('^/user/$');
             return $http.post('/logout/', {});
         },
 
         login: function(payload) {
+            Cache.clear('^/user/$');
             return $http.post('/login/', payload);
         },
 
@@ -33,7 +36,7 @@ App.service('UserManagement', ['$http', 'Cache', function($http, Cache) {
         },
 
         loadCurrentUser: function () {
-            var promise = $http.get('/user/');
+            var promise = $http.get('/user/', {cache:Cache});
 
             promise.success(function(user) {
                 current = user;

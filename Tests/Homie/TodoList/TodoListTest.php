@@ -127,9 +127,9 @@ class TodoListTest extends TestCase
             ->with($rawList[0])
             ->willReturn($expectedVo);
 
-        $actualResult = $this->subject->getList();
+        $actual = $this->subject->getList();
 
-        $this->assertEquals([$todoId => $expectedVo], $actualResult);
+        $this->assertEquals([$expectedVo], $actual);
 
     }
 

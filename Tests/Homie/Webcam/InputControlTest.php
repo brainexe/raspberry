@@ -45,5 +45,4 @@ class InputControlTest extends TestCase
 
         $this->subject->takeShot();
     }
-
 }

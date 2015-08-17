@@ -89,5 +89,4 @@ class ShoppingListControllerTest extends TestCase
         $expectedResult = new JsonResponse(true);
         $this->assertEquals($expectedResult, $actualResult);
     }
-
 }

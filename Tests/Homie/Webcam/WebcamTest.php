@@ -105,6 +105,20 @@ class WebcamTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testRecentEmpty()
+    {
+        $files = [];
+
+        $this->filesystem
+            ->expects($this->once())
+            ->method('listContents')
+            ->with(Webcam::ROOT)
+            ->willReturn($files);
+
+        $actual = $this->subject->getRecentImage();
+        $this->assertEquals([], $actual);
+    }
+
     public function testDelete()
     {
         $filename = 'id';

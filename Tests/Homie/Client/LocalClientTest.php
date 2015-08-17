@@ -18,7 +18,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
     /**
      * @var ProcessBuilder|MockObject
      */
-    private $mockProcessBuilder;
+    private $processBuilder;
 
     /**
      * @var LocalClient
@@ -27,9 +27,9 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockProcessBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
+        $this->processBuilder = $this->getMock(ProcessBuilder::class, [], [], '', false);
 
-        $this->subject = new LocalClient($this->mockProcessBuilder);
+        $this->subject = new LocalClient($this->processBuilder);
     }
 
     /**
@@ -42,26 +42,28 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
 
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
-            ->method('add')
+            ->method('setPrefix')
+            ->with([$command])
             ->willReturnSelf();
 
-        $this->mockProcessBuilder
+        $this->processBuilder
+            ->expects($this->once())
+            ->method('setArguments')
+            ->with(['foo'])
+            ->willReturnSelf();
+
+        $this->processBuilder
             ->expects($this->once())
             ->method('setTimeout')
             ->with(LocalClient::TIMEOUT)
             ->willReturnSelf();
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('getProcess')
             ->willReturn($process);
-
-        $process
-            ->expects($this->once())
-            ->method('setCommandLine')
-            ->with($command);
 
         $process
             ->expects($this->once())
@@ -77,7 +79,7 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
             ->method('getErrorOutput')
             ->willReturn('error');
 
-        $this->subject->executeWithReturn($command);
+        $this->subject->executeWithReturn($command, ['foo']);
     }
 
     public function testExecuteWithReturn()
@@ -86,26 +88,28 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $output  = 'output';
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
-            ->method('add')
+            ->method('setPrefix')
+            ->with([$command])
             ->willReturnSelf();
 
-        $this->mockProcessBuilder
+        $this->processBuilder
+            ->expects($this->once())
+            ->method('setArguments')
+            ->with([])
+            ->willReturnSelf();
+
+        $this->processBuilder
             ->expects($this->once())
             ->method('setTimeout')
             ->with(LocalClient::TIMEOUT)
             ->willReturnSelf();
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('getProcess')
             ->willReturn($process);
-
-        $process
-            ->expects($this->once())
-            ->method('setCommandLine')
-            ->with($command);
 
         $process
             ->expects($this->once())
@@ -131,18 +135,25 @@ class LocalClientTest extends PHPUnit_Framework_TestCase
         $output  = 'output';
         $process = $this->getMock(Process::class, [], [], '', false);
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
-            ->method('add')
+            ->method('setPrefix')
+            ->with([$command])
             ->willReturnSelf();
 
-        $this->mockProcessBuilder
+        $this->processBuilder
+            ->expects($this->once())
+            ->method('setArguments')
+            ->with([])
+            ->willReturnSelf();
+
+        $this->processBuilder
             ->expects($this->once())
             ->method('setTimeout')
             ->with(LocalClient::TIMEOUT)
             ->willReturnSelf();
 
-        $this->mockProcessBuilder
+        $this->processBuilder
             ->expects($this->once())
             ->method('getProcess')
             ->willReturn($process);

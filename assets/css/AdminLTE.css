@@ -447,6 +447,9 @@ body > .header .logo .icon {
   }
 }
 @media (max-width: 767px) {
+  .logo {
+    display: none !important;
+  }
   .navbar .navbar-nav > li {
     float: left;
   }

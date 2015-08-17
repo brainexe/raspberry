@@ -33,8 +33,6 @@ App.directive('confirm', ['$modal', function($modal) {
                     }
                 });
                 modalInstance.result.then(function () {
-                    console.log(scope.confirm)
-                    console.log(scope)
                     scope.confirm();
                 });
             });

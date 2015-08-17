@@ -1,6 +1,6 @@
 <?php
 
-namespace Homie\Sensors\Sensors\Webcam;
+namespace Homie\Sensors\Sensors\Brightness;
 
 use BrainExe\Annotations\Annotations\Inject;
 use Homie\Client\ClientInterface;

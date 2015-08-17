@@ -3,6 +3,7 @@
 namespace Tests\Homie\Sensors;
 
 use BrainExe\Core\Authentication\Settings\Settings;
+use Homie\Sensors\GetValue\Event;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Homie\Espeak\EspeakEvent;
@@ -311,6 +312,68 @@ class ControllerTest extends TestCase
             ->with($expected);
 
         $this->subject->edit($request, $sensorId);
+    }
+
+    public function testAddValue()
+    {
+        $sensorId = 12;
+        $value    = 42;
+        $request  = new Request();
+        $request->request->set('value', $value);
+
+        $sensorRaw = ['raw'];
+        $sensorVo  = new SensorVO();
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensorRaw);
+        $this->voBuilder
+            ->expects($this->once())
+            ->method('buildFromArray')
+            ->with($sensorRaw)
+            ->willReturn($sensorVo);
+
+        $this->valuesGateway
+            ->expects($this->once())
+            ->method('addValue')
+            ->with($sensorVo, $value);
+
+        $actual = $this->subject->addValue($request, $sensorId);
+
+        $this->assertTrue($actual);
+    }
+
+    public function testForceGetValue()
+    {
+        $sensorId = 12;
+        $value    = 42;
+        $request  = new Request();
+        $request->request->set('value', $value);
+
+        $sensorRaw = ['raw'];
+        $sensorVo  = new SensorVO();
+        $this->gateway
+            ->expects($this->once())
+            ->method('getSensor')
+            ->with($sensorId)
+            ->willReturn($sensorRaw);
+        $this->voBuilder
+            ->expects($this->once())
+            ->method('buildFromArray')
+            ->with($sensorRaw)
+            ->willReturn($sensorVo);
+
+        $event = new Event($sensorVo);
+
+        $this->dispatcher
+            ->expects($this->once())
+            ->method('dispatchInBackground')
+            ->with($event);
+
+        $actual = $this->subject->forceGetValue($request, $sensorId);
+
+        $this->assertTrue($actual);
     }
 
     public function testSlim()

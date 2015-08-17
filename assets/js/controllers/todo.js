@@ -1,14 +1,5 @@
 App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', function ($scope, _, Todo, UserManagement) {
-    $scope.todos     = [];
     $scope.userNames = [];
-
-    // todo from BE + cache + state maschine
-    $scope.stati = {
-        "open":      {id: 'open', name: _("Open"), tasks: []},
-        "pending":   {id: 'pending', name: _("Pending"), tasks: []},
-        "progress":  {id: 'progress', name: _("Progress"), tasks: []},
-        "completed": {id: 'completed', name: _("Completed"), tasks: []}
-    };
 
     UserManagement.list().success(function (userNames) {
         for (var userId in userNames) {
@@ -19,10 +10,8 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
     });
 
     Todo.getData().success(function (data) {
-        for (var id in data.list) {
-            var item = data.list[id];
-            $scope.stati[item.status].tasks.push(item);
-        }
+        $scope.states = data.states;
+        $scope.items  = data.list;
     });
 
     $scope.assign = function (itemId, userId) {
@@ -50,27 +39,28 @@ App.controller('TodoController', ['$scope', '_', 'Todo', 'UserManagement', funct
         };
 
         Todo.add(tempData).success(function (result) {
-            $scope.stati[result.status].tasks.push(result);
+            $scope.items.push(result);
             $scope.newTitle = $scope.newDescription = $scope.newDateline = '';
         });
     };
 
-    $scope.dropSuccessHandler = function (index, status, todo_id, array) {
-        array.splice(index, 1);
-    };
-
     $scope.onDelete = function (data) {
-        Todo.deleteItem(data.todoId);
+        Todo.deleteItem(data.todoId).success(function() {
+            $scope.items.removeByValue(data);
+        });
     };
 
-    $scope.onDrop = function (status, event, data, tasks) {
-        tasks.push(data);
-
+    $scope.onDrop = function (status, event, data) {
         if (status == data.status) {
             return;
         }
 
-        data.status = status;
+        $scope.items.forEach(function(current) {
+            if (data.todoId == current.todoId) {
+                current.status = data.status;
+            }
+        });
+
         Todo.edit(data);
     };
 }]);

@@ -2,10 +2,11 @@
 
 namespace Homie\Radio\VO;
 
-class RadioVO
+class RadioVO extends SwitchVO
 {
 
     /**
+     * @todo use $switchId
      * @var string
      */
     public $radioId;
@@ -20,18 +21,4 @@ class RadioVO
      */
     public $pin;
 
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
-     * @var bool
-     */
-    public $status;
 }

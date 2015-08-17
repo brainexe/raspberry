@@ -176,6 +176,7 @@ class RadioGatewayTest extends PHPUnit_Framework_TestCase
                 'name' => null,
                 'description' => null,
                 'status' => 1,
+                'switchId' => null
             ]);
 
         $this->subject->editRadio($radioVo);

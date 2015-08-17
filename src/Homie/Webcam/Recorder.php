@@ -25,8 +25,21 @@ class Recorder
      * @var Filesystem
      */
     private $filesystem;
+
+    /**
+     * @var string
+     */
     private $videoCommand;
+
+    /**
+     * @var string
+     */
     private $soundCommand;
+
+    /**
+     * @var string
+     */
+    private $photoCommand;
 
     /**
      * @Inject({

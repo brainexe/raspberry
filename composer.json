@@ -13,10 +13,10 @@
     }
   },
   "require": {
-    "brainexe/core": "dev-master",
-    "brainexe/totp": "dev-master",
-    "brainexe/input-control": "dev-master",
-    "brainexe/expression": "dev-master",
+    "brainexe/core": "~1.1",
+    "brainexe/totp": "~1.1",
+    "brainexe/input-control": "~1.1",
+    "brainexe/expression": "~1.1",
     "league/flysystem": "~1.1@dev",
     "league/flysystem-cached-adapter": "dev-master"
   },
@@ -29,7 +29,7 @@
     "bin-dir": "bin/"
   },
   "suggest": {
-    "league/flysystem-webdav": "needed for owncloud filesystem",
+    "league/flysystem-webdav": "needed for webdav/owncloud filesystem",
     "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
   }
 }

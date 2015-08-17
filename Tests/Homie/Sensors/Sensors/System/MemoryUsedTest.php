@@ -37,5 +37,4 @@ class MemoryUsedTest extends TestCase
         $actual = $this->subject->getDefinition();
         $this->assertInstanceOf(Definition::class, $actual);
     }
-
 }

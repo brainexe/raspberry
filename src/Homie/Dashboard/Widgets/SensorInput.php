@@ -31,18 +31,6 @@ class SensorInput extends AbstractWidget
     }
 
     /**
-     * @param array $payload
-     * @return mixed|void
-     * @throws UserException
-     */
-    public function create(array $payload)
-    {
-        if (empty($payload['sensor_id'])) {
-            throw new UserException("No sensor_id passed");
-        }
-    }
-
-    /**
      * @return WidgetMetadataVo
      */
     public function getMetadata()

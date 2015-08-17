@@ -32,6 +32,51 @@ class BMP085Test extends TestCase
         $this->subject = new BMP085($this->client);
     }
 
+    public function testGetValue()
+    {
+        $parameter = "foo.sh";
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->with($parameter)
+            ->willReturn('Pressure: 1024 hPa');
+
+        $actual = $this->subject->getValue($parameter);
+
+        $this->assertEquals(1024, $actual);
+    }
+
+    public function testGetValueWithoutValue()
+    {
+        $parameter = "foo.sh";
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->with($parameter)
+            ->willReturn(null);
+
+        $actual = $this->subject->getValue($parameter);
+
+        $this->assertNull($actual);
+    }
+
+    public function testGetValueInvalidValue()
+    {
+        $parameter = "foo.sh";
+
+        $this->client
+            ->expects($this->once())
+            ->method('executeWithReturn')
+            ->with($parameter)
+            ->willReturn('invalid');
+
+        $actual = $this->subject->getValue($parameter);
+
+        $this->assertNull($actual);
+    }
+
     public function testIsSupported()
     {
         $parameter = 'not_exiting_file';

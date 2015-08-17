@@ -1,6 +1,6 @@
 
 var App = angular.module('homie', [
-        'ngDragDrop',
+        'ang-drag-drop',
         'ngRoute',
         'ngSanitize',
         'angular-cache',

@@ -18,6 +18,15 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
         }
     };
 
+    // do only store plain response in cache when successful
+    var oldPut = cache.put.bind(cache);
+    cache.put = function put(key, value, options) {
+        if ( value.length == 4 && value[0] == 200) {
+            value = value[1];
+        }
+        oldPut(key, value, options);
+    };
+
     cache.intervalClear = function(pattern, seconds) {
         $interval(function() {
             cache.clear(pattern);

@@ -62,28 +62,18 @@ class TodoListController
     }
 
     /**
-     * @Route("/todo/list/", name="todo.list")
-     * @return array
-     */
-    public function fetchList()
-    {
-        $list = $this->todo->getList();
-
-        return $list;
-    }
-
-    /**
      * @param Request $request
      * @Route("/todo/", name="todo.add", methods="POST")
      * @return JsonResponse
      */
     public function addItem(Request $request)
     {
-        $itemVo              = new TodoItemVO();
-        $itemVo->name        = $request->request->get('name');
-        $itemVo->description = $request->request->get('description');
-        $itemVo->status      = $request->request->get('status');
-        $itemVo->deadline    = strtotime($request->request->get('deadline'));
+        $itemVo                 = new TodoItemVO();
+        $itemVo->name           = $request->request->get('name');
+        $itemVo->description    = $request->request->get('description');
+        $itemVo->status         = $request->request->get('status');
+        $itemVo->deadline       = strtotime($request->request->get('deadline'));
+        $itemVo->cronExpression = $request->request->get('cronExpression');
 
         $user = $request->attributes->get('user');
 

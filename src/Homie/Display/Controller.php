@@ -93,7 +93,7 @@ class Controller
     /**
      * @Route("/display/{displayId}/redraw/", name="display.redraw", methods="POST")
      * @param Request $request
-     * @return Settings
+     * @return bool
      */
     public function redraw(Request $request, $displayId)
     {

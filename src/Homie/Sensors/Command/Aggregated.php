@@ -24,7 +24,7 @@ class Aggregated extends Command
     {
         $this->setName('sensor:aggregate')
             ->setDescription('Adds a value for an aggregated sensor')
-            ->addArgument('parameter', InputArgument::REQUIRED)
+            ->addArgument('identifier', InputArgument::REQUIRED)
             ->addArgument('value', InputArgument::REQUIRED);
     }
 

@@ -108,7 +108,6 @@ class Controller
      * @Route("/webcam/file/", name="webcam.getFile")
      * @param Request $request
      * @return Response
-     * @todo check security
      */
     public function getFile(Request $request)
     {

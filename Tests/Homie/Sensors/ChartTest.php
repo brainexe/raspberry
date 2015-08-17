@@ -22,11 +22,19 @@ class ChartTest extends TestCase
     {
         $sensors = [
             [
-                'sensorId' => $sensorId = 1212,
+                'sensorId' => $sensorId1 = 1212,
                 'name' => $sensorName = 'name',
                 'description' => $sensorDescription = 'description',
                 'pin' => $sensorPin = 'pin',
                 'type' => 'mockType',
+            ],
+            [
+                'sensorId' => $sensorId2 = 1213,
+                'name' => 'name2',
+                'description' => 'description2',
+                'pin' => 'pin2',
+                'type' => 'mockType2',
+                'color' => 'colorful'
             ],
             [
                 'sensorId' => 'sensor_id_2',
@@ -34,8 +42,11 @@ class ChartTest extends TestCase
         ];
 
         $sensorValues = [
-            $sensorId => [
+            $sensorId1 => [
                 $timestamp = 1212 => $sensorValue = 1200
+            ],
+            $sensorId2 => [
+                1 => 2
             ]
         ];
 
@@ -43,7 +54,7 @@ class ChartTest extends TestCase
 
         $expectedResult = [
             [
-                'sensor_id' => $sensorId,
+                'sensor_id' => $sensorId1,
                 'name' => $sensorName,
                 'description' => $sensorDescription,
                 'color' => '#a01610',
@@ -52,6 +63,19 @@ class ChartTest extends TestCase
                     [
                          'x' => $timestamp,
                          'y' => $sensorValue
+                    ]
+                ]
+            ],
+            [
+                'sensor_id' => $sensorId2,
+                'name' => 'name2',
+                'description' => 'description2',
+                'color' => 'colorful',
+                'type' => 'mockType2',
+                'data' => [
+                    [
+                        'x' => 1,
+                        'y' => 2
                     ]
                 ]
             ]

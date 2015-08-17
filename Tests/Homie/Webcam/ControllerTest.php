@@ -87,10 +87,14 @@ class ControllerTest extends TestCase
         $this->assertEquals($photos, $actual);
     }
 
-    public function testTakePhoto()
+    /**
+     * @dataProvider provideTakeActions
+     * @param WebcamEvent $expectedEvent
+     * @param string $randomId
+     * @param string $type
+     */
+    public function testTakePhoto(WebcamEvent $expectedEvent, $randomId, $type)
     {
-        $randomId = 11880;
-
         $request = new Request();
 
         $this->idGenerator
@@ -98,16 +102,26 @@ class ControllerTest extends TestCase
             ->method('generateRandomId')
             ->willReturn($randomId);
 
-        $event = new WebcamEvent($randomId, WebcamEvent::TAKE_PHOTO);
-
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatchInBackground')
-            ->with($event);
+            ->with($expectedEvent);
 
-        $actualResult = $this->subject->take($request, 'photo');
+        $request->request->set('duration', 5);
+        $actualResult = $this->subject->take($request, $type);
 
         $this->assertEquals(true, $actualResult);
+    }
+
+    public function provideTakeActions()
+    {
+        $randomId = 11880;
+
+        return [
+            'photo' => [new WebcamEvent($randomId, WebcamEvent::TAKE_PHOTO), $randomId, 'photo'],
+            'video' => [new WebcamEvent($randomId, WebcamEvent::TAKE_VIDEO, 5), $randomId, 'video'],
+            'sound' => [new WebcamEvent($randomId, WebcamEvent::TAKE_SOUND, 5), $randomId, 'sound'],
+        ];
     }
 
     public function testDelete()

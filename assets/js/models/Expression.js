@@ -19,7 +19,7 @@ App.service('Expression', ['$http', 'Cache', function($http, Cache) {
         },
 
         deleteExpression: function(expressionId) {
-            return  $http.delete('/expressions/', {expressionId:expressionId});
+            return  $http.delete('/expressions/{0}/'.format(expressionId));
         },
 
         deleteEvent: function(eventId) {

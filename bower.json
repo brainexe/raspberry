@@ -26,7 +26,8 @@
     "ng-sortable": "~1.3.0",
     "sockjs-client": "1.0.*",
     "rickshaw": "1.5.*",
-    "ui-select": "https://github.com/angular-ui/ui-select.git#~0.12.*"
+    "ui-select": "https://github.com/angular-ui/ui-select.git#~0.12.*",
+    "angular-native-dragdrop": "~1.1"
   },
   "resolutions": {
     "angular": "1.4.*"
