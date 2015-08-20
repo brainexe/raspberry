@@ -12,7 +12,7 @@ App.service('Cache', ['CacheFactory', '$interval', '$rootScope', function(CacheF
 
         for (idx in keys) {
             key = keys[idx];
-            if (key.match(pattern)) {
+            if (key.match && key.match(pattern)) {
                 cache.remove(key);
             }
         }

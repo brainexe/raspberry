@@ -29,7 +29,6 @@ class SensorBuilderTest extends TestCase
         /** @var Sensor|MockObject $sensorMock */
         $sensorMock = $this->getMock(Sensor::class);
         $sensorType = 'sensor_123';
-
         $definition = new Definition();
 
         $sensorMock

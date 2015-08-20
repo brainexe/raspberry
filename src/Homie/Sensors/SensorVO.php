@@ -49,4 +49,9 @@ class SensorVO
      * @var float
      */
     public $lastValue;
+
+    /**
+     * @var float
+     */
+    public $color;
 }

@@ -2,14 +2,14 @@
 
 namespace Tests\Homie\Sensors;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use Homie\Sensors\SensorVO;
 use Homie\Sensors\Builder;
 
 /**
  * @covers Homie\Sensors\Builder
  */
-class BuilderTest extends PHPUnit_Framework_TestCase
+class BuilderTest extends TestCase
 {
 
     /**
@@ -31,25 +31,26 @@ class BuilderTest extends PHPUnit_Framework_TestCase
             'interval' => $interval = 60,
             'node' => $node = 22,
             'pin' => $pin = 'pin',
+            'color' => $color = 'red',
             'type' => $type = 'type',
             'lastValue' => $lastValue = 'lastValue',
             'lastValueTimestamp' => $lastValueTimestamp = 10000
         ];
 
-        $actualResult = $this->subject->buildFromArray($array);
+        $actual = $this->subject->buildFromArray($array);
 
-        $expectedResult = new SensorVO();
+        $expected                     = new SensorVO();
+        $expected->sensorId           = $sensorId;
+        $expected->name               = $name;
+        $expected->description        = $description;
+        $expected->interval           = $interval;
+        $expected->node               = $node;
+        $expected->pin                = $pin;
+        $expected->type               = $type;
+        $expected->color              = $color;
+        $expected->lastValue          = $lastValue;
+        $expected->lastValueTimestamp = $lastValueTimestamp;
 
-        $expectedResult->sensorId = $sensorId;
-        $expectedResult->name = $name;
-        $expectedResult->description = $description;
-        $expectedResult->interval = $interval;
-        $expectedResult->node = $node;
-        $expectedResult->pin = $pin;
-        $expectedResult->type = $type;
-        $expectedResult->lastValue = $lastValue;
-        $expectedResult->lastValueTimestamp = $lastValueTimestamp;
-
-        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertEquals($expected, $actual);
     }
 }

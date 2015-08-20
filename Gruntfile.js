@@ -175,6 +175,7 @@ module.exports = function (grunt) {
                     'bower_components/bootstrap/dist/css/bootstrap.min.css',
                     'bower_components/rickshaw/rickshaw.css',
                     'bower_components/ui-select/dist/select.min.css',
+                    'bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css',
                     //'bower_components/ng-sortable/dist/ng-sortable.style.min.css', // todo
                     'assets/css/**/*.css'
                 ],
@@ -252,6 +253,7 @@ module.exports = function (grunt) {
                         'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                         'bower_components/angular-native-dragdrop/draganddrop.js',
                         'bower_components/angular-cache/dist/angular-cache.min.js',
+                        'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js',
                         'bower_components/ng-sortable/dist/ng-sortable.min.js',
                         'bower_components/ui-select/dist/select.min.js',
                         'bower_components/sockjs-client/dist/sockjs.min.js',

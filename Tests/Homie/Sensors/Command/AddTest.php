@@ -227,6 +227,7 @@ class AddTest extends TestCase
         $expectedVo->pin         = $parameter;
         $expectedVo->interval    = $interval;
         $expectedVo->node        = $node;
+        $expectedVo->color       = '#b06893';
 
         $this->gateway
             ->expects($this->once())

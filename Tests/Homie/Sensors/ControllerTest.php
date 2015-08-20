@@ -206,6 +206,7 @@ class ControllerTest extends TestCase
         $name        = 'name';
         $description = 'descritpion';
         $pin         = 'pin';
+        $color       = 'red';
         $interval    = 12;
         $node        = 1;
 
@@ -216,6 +217,7 @@ class ControllerTest extends TestCase
         $request->request->set('pin', $pin);
         $request->request->set('interval', $interval);
         $request->request->set('node', $node);
+        $request->request->set('color', $color);
 
         $sensorVo = new SensorVO();
         $sensorVo->name = $name;
@@ -230,7 +232,8 @@ class ControllerTest extends TestCase
                 $interval,
                 $node,
                 $pin,
-                $type
+                $type,
+                $color
             )
             ->willReturn($sensorVo);
         $this->gateway

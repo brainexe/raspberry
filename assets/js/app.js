@@ -7,6 +7,7 @@ var App = angular.module('homie', [
         'ui.bootstrap',
         'ui.select',
         'as.sortable',
+        'colorpicker.module',
         'gettext'
     ]).config(['$routeProvider', '$httpProvider', '$provide', function ($routeProvider, $httpProvider, $provide) {
         // needed for translated routes

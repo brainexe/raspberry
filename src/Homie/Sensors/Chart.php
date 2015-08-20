@@ -31,7 +31,7 @@ class Chart
             $sensorJson = [
                 'sensor_id'   => (int)$sensorId,
                 'type'        => $sensor['type'],
-                'color'       => $this->getColor($sensor),
+                'color'       => $sensor['color'],
                 'name'        => $sensor['name'],
                 'description' => $sensor['description'],
                 'data'        => []
@@ -63,18 +63,5 @@ class Chart
             86400 * 30  => _('Last month'),
             -1          => _('All time'),
         ];
-    }
-
-    /**
-     * @param array $sensor
-     * @return string
-     */
-    private function getColor(array $sensor)
-    {
-        if (!empty($sensor['color'])) {
-            return $sensor['color'];
-        }
-
-        return sprintf('#%s', substr(md5($sensor['sensorId']), 0, 6));
     }
 }

@@ -5,7 +5,6 @@
                 type="button"
                 class="close"
                 data-dismiss="modal"
-                aria-hidden="true"
         >
             &times;
         </button>
@@ -17,6 +16,7 @@
                 <tr>
                     <th translate>Type</th>
                     <th translate>Name</th>
+                    <th translate>Color</th>
                     <th translate>Value</th>
                     <th translate>Interval</th>
                     <th translate>Next run</th>
@@ -49,6 +49,13 @@
                     <div ng-if="sensor.edit">
                         <input type="text"  class="form-control" placeholder="Name" ng-model="sensor.name" />
                         <input type="text"  class="form-control" placeholder="Description" ng-model="sensor.description" />
+                    </div>
+                </td>
+                <td>
+                    <div ng-if="!sensor.edit && sensor.color" class="sensorColorPicker" ng-style="{'background-color':sensor.color}"></div>
+                    <div ng-if="sensor.edit" class="input-group">
+                        <div colorpicker ng-model="sensor.color" ng-if="sensor.color" class="input-group-addon sensorColorPicker" style="border:darkgrey 1px solid; width: 20px; height: 20px" ng-style="{'background-color':sensor.color}"></div>
+                        <input ng-if="sensor.edit" colorpicker type="text" ng-model="sensor.color" />
                     </div>
                 </td>
                 <td>

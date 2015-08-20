@@ -24,6 +24,7 @@ class Builder
             $data['node'],
             $data['pin'],
             $data['type'],
+            $data['color'],
             $data['lastValue'],
             $data['lastValueTimestamp']
         );
@@ -37,6 +38,7 @@ class Builder
      * @param int $node
      * @param string $pin
      * @param string $type
+     * @param string $color
      * @param float $lastValue
      * @param int $lastValueTimestamp
      * @return SensorVO
@@ -49,6 +51,7 @@ class Builder
         $node,
         $pin,
         $type,
+        $color,
         $lastValue = null,
         $lastValueTimestamp = null
     ) {
@@ -61,6 +64,7 @@ class Builder
         $sensor->node               = (int)$node;
         $sensor->pin                = $pin;
         $sensor->type               = $type;
+        $sensor->color              = $color;
         $sensor->lastValue          = $lastValue;
         $sensor->lastValueTimestamp = (int)$lastValueTimestamp;
 

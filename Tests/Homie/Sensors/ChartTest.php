@@ -27,6 +27,7 @@ class ChartTest extends TestCase
                 'description' => $sensorDescription = 'description',
                 'pin' => $sensorPin = 'pin',
                 'type' => 'mockType',
+                'color' => 'colorful'
             ],
             [
                 'sensorId' => $sensorId2 = 1213,
@@ -57,7 +58,7 @@ class ChartTest extends TestCase
                 'sensor_id' => $sensorId1,
                 'name' => $sensorName,
                 'description' => $sensorDescription,
-                'color' => '#a01610',
+                'color' => 'colorful',
                 'type' => 'mockType',
                 'data' => [
                     [

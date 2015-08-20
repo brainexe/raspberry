@@ -116,6 +116,7 @@ class Add extends Command
         $sensorVo->pin         = $parameter;
         $sensorVo->interval    = $interval;
         $sensorVo->node        = $node;
+        $sensorVo->color       = '#' . substr(md5($name), 0, 6);
 
         $this->gateway->addSensor($sensorVo);
     }

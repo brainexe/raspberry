@@ -5,8 +5,9 @@ namespace Tests\Homie\Sensors;
 use Exception;
 use Homie\Sensors\Interfaces\Sensor;
 use Homie\Sensors\SensorBuilder;
+use PHPUnit_Framework_TestCase as TestCase;
 
-class SensorBuilderIntegrationTest extends \PHPUnit_Framework_TestCase
+class SensorBuilderIntegrationTest extends TestCase
 {
 
     public function testSensorType()
